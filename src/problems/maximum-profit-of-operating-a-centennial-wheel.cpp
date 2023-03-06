@@ -6,14 +6,14 @@
 
 class Solution {
 public:
-    int minOperationsMaxProfit(vector<int>& customers, int boardingCost, int runningCost) {
+    int minOperationsMaxProfit(vector<int> &customers, int boardingCost, int runningCost) {
         if ((boardingCost << 2) <= runningCost) return -1;
         int ans = -1, income = 0, max_income = 0, waiting = 0, n = customers.size();
-        for (int i = 0; i < n; ) {
+        for (int i = 0; i < n;) {
             waiting += customers[i++];
             int c = min(waiting, 4);
             waiting -= c;
-            income += c * boardingCost- runningCost;
+            income += c * boardingCost - runningCost;
             if (income > max_income) {
                 max_income = income;
                 ans = i;
@@ -36,4 +36,10 @@ int main() {
             "[10,9,6] 6 4",
             "[3,4,0,5,1] 1 92",
     });
+    const int a = 0;
+    int *c = const_cast<int *>(&a);
+    (*c)++;
+    cout << a << ' ' << *(&a) << endl;
+    cout << c << ' ' << *c << endl;
+    dynamic_cast<>()
 }
