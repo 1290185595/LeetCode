@@ -36,10 +36,4 @@ int main() {
             "[10,9,6] 6 4",
             "[3,4,0,5,1] 1 92",
     });
-    const int a = 0;
-    int *c = const_cast<int *>(&a);
-    (*c)++;
-    cout << a << ' ' << *(&a) << endl;
-    cout << c << ' ' << *c << endl;
-    dynamic_cast<>()
 }
