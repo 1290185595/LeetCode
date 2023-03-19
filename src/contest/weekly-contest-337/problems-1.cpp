@@ -1,22 +1,12 @@
 #include "library.h"
 
 class Solution {
-private:
-    bool isAEIOU(char & c) {
-        if (c == 'a') return true;
-        if (c == 'e') return true;
-        if (c == 'i') return true;
-        if (c == 'o') return true;
-        if (c == 'u') return true;
-        return false;
-    }
 public:
-    int vowelStrings(vector<string>& words, int left, int right) {
-        int ans = 0;
-        for (int i = left; i < right; ++i) {
-            if (isAEIOU(words[i].front()) && isAEIOU(words[i].back())) {
-                ++ ans;
-            }
+    vector<int> evenOddBit(int n) {
+        vector<int> ans(2);
+        for (int i = 0; n > 0; ++i) {
+            if (n&1) ans[i&1]++;
+            n >>= 1;
         }
         return ans;
     }
@@ -24,6 +14,6 @@ public:
 
 
 int main() {
-    test(&Solution::vowelStrings, {
+    test(&Solution::evenOddBit, {
     });
 }
