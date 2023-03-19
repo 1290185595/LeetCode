@@ -2,17 +2,17 @@
 
 class Solution {
 public:
-    int countWays(vector<vector<int>>& ranges) {
-        sort(ranges.begin(), ranges.end(), [](auto & a, auto & b){return a[0] < b[0];});
-        int n = 0, pre = -1;
-        for (auto & r : ranges) {
-            cout << pre << ' ' << r[0] << endl;
-            if (r[0] > pre) ++n;
-            pre = max(pre, r[1]);
-        }
-        int ans = 1, mod = 1000000007;
-        while(n-->0) {
-            if ((ans <<= 1) >= mod) ans-= mod;
+    long long findScore(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> idx(n--); for (int i = 0; i <= n; ++i) idx[i] = i;
+        sort(idx.begin(), idx.end(), [&](int i, int j){return nums[i] == nums[j] ? (i < j) : nums[i] < nums[j];});
+        long long ans = 0;
+        for (int i : idx) {
+            if (nums[i]) {
+                ans += nums[i];
+                if (i > 0) nums[i - 1] = 0;
+                if (i < n) nums[i + 1] = 0;
+            }
         }
         return ans;
     }
@@ -20,7 +20,7 @@ public:
 
 
 int main() {
-    test(&Solution::countWays, {
-            "[[34,56],[28,29],[12,16],[11,48],[28,54],[22,55],[28,41],[41,44]]",
+    test(&Solution::findScore, {
+            "[2,1,3,4,5,2]",
     });
 }

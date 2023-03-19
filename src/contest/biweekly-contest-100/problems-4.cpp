@@ -1,47 +1,34 @@
 #include "library.h"
 
-class Node {
-private:
-    vector<pair<Node*, int>> next;
-    unordered_set<Node*> guess;
-public:
-    void add_edge(Node* n) {
-        next.emplace_back(n, -1);
-    }
-    void add_guess(Node* n) {
-        guess.insert(n);
-    }
-    int count(Node * pre = nullptr){
-        int ans = 0;
-        for (auto & p: next) {
-            if (p.first==pre) continue;
-            if (p.second < 0) p.second = p.first->count(this) + guess.count(p.first);
-            ans += p.second;
-        }
-        return ans;
-    }
-};
 class Solution {
 public:
-    int rootCount(vector<vector<int>>& edges, vector<vector<int>>& guesses, int k) {
-        vector<Node*> nodes(edges.size()+1);
-        for (auto & n: nodes) n = new Node();
-        for (auto & e :edges) {
-            nodes[e[0]]->add_edge(nodes[e[1]]);
-            nodes[e[1]]->add_edge(nodes[e[0]]);
+    long long repairCars(vector<int>& ranks, int cars) {
+        unordered_map<int, int> r_c;
+        for (int r: ranks) r_c[r]++;
+        unordered_map<int, long long> c_c;
+        priority_queue<int, vector<int>, function<bool(int, int)>> q([&](int i, int j) {
+            long long _i = (long long)i* (c_c[i]+1)* (c_c[i]+1), _j = (long long)j* (c_c[j]+1)* (c_c[j]+1);
+            return _i == _j ? i > j : _i > _j;
+        });
+        for (auto [k, v]: r_c) {
+            c_c[k] = 0;
+            q.push(k);
         }
-        for (auto g: guesses) {
-            nodes[g[0]]->add_guess(nodes[g[1]]);
+        while (cars > 0) {
+            int k = q.top();
+            q.pop();
+            cars -= r_c[k];
+            ++c_c[k];
+            q.push(k);
         }
-        int ans = 0;
-        for (auto & n: nodes) if (n->count()>=k) ++ans;
+        long long ans = 0;
+        for (auto [k, v] : c_c) ans = max(ans, (long long) k * v * v);
         return ans;
     }
 };
 
-
 int main() {
-    test(&Solution::rootCount, {
-            "[[0,1],[1,2],[1,3],[4,2]] [[1,3],[0,1],[1,0],[2,4]] 3",
+    test(&Solution::repairCars, {
+            "[4,2,3,1] 10",
     });
 }

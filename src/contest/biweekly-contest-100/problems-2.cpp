@@ -2,15 +2,21 @@
 
 class Solution {
 public:
-    int temperatureTrend(vector<int>& temperatureA, vector<int>& temperatureB) {
-        int ans = 0, pre = 0;
+    int maximizeGreatness(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int ans = 0;
+        for (int i = 0, j = 0, n = nums.size(); true; ++i, ++j) {
+            while ((j < n) && (nums[j] <= nums[i])) ++j;
+            if (j == n) break;
+            ++ans;
+        }
         return ans;
     }
 };
 
 
 int main() {
-    test(&Solution::temperatureTrend, {
-            "[21,18,18,18,31] [34,32,16,16,17]",
+    test(&Solution::maximizeGreatness, {
+            "[1,3,5,2,1,3,1]",
     });
 }
