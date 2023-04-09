@@ -17,6 +17,8 @@
 #include <memory>
 #include <numeric>
 #include <algorithm>
+
+#include <fstream>
 using namespace std;
 
 #endif //LEETCODE_STANDARD_H
