@@ -62,13 +62,13 @@ func(I iter){
 void ff(int &&a) {cout << ++a;}
 
 int main() {
-    int x = 1, &y=x, &&z=1, &&g=z;
+    int x = 1, &y=x, &&z=1, &g=z;
     z = 2;
     auto & a = y;
-    ff(x);
-    ff(y);
-    ff(z);
-    ff(1);
+//    ff(x);
+//    ff(y);
+//    ff(z);
+//    ff(1);
 //    lower_bound()
 //    MyIter<int> iter(&x);
 //    // ...
