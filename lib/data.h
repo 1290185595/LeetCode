@@ -126,6 +126,10 @@ template<>
 Data<int>::Data(string &s) {
     data = stoi(s);
 }
+template<>
+Data<long long >::Data(string &s) {
+    data = stoll(s);
+}
 
 template<>
 Data<float>::Data(string &s) {
