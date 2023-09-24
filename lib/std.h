@@ -1,7 +1,7 @@
 #ifndef LEETCODE_STANDARD_H
 #define LEETCODE_STANDARD_H
 
-
+#include <bits/stdc++.h>
 #include <iostream>
 #include <iterator>
 #include <sstream>
